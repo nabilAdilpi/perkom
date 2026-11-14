@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function TidakDitemukan() {
   return (
-    <section className="wadah bagian">
+    <section className="wadah bagian" />
 <<<<<<< HEAD
     <h1 className="bagian__judul error">404</h1>
 =======
