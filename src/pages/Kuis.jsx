@@ -56,8 +56,8 @@ export default function Kuis() {
             onLanjut={lanjut}
           />
         )}
-        <Footer />
       </section>
+      <Footer />
     </>
   );
 }

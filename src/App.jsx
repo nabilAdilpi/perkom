@@ -4,7 +4,7 @@ import Kalkulator from "./pages/Kalkulator.jsx";
 import Kuis from "./pages/Kuis.jsx";
 import TidakDitemukan from "./pages/TidakDitemukan.jsx";
 
-// App.jsx hanya mengatur jalur (routing) antarhalaman.
+// Jalur (routing) antar halaman
 export default function App() {
   return (
     <>

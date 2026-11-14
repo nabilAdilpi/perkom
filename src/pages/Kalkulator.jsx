@@ -139,121 +139,123 @@ export default function Kalkulator() {
   }, [hasil, mode]);
 
   return (
-    <section className="wadah bagian">
-      <ScrollKeAtas />
-      <Navbar />
-      <h1 className="bagian__judul">Kalkulator permutasi dan kombinasi</h1>
-      <p className="bagian__intro">
-        Pilih jenis hitungan, isi angkanya, dan lihat langkah penyelesaiannya.
-      </p>
+    <>
+      <section className="wadah bagian">
+        <ScrollKeAtas />
+        <Navbar />
+        <h1 className="bagian__judul">Kalkulator permutasi dan kombinasi</h1>
+        <p className="bagian__intro">
+          Pilih jenis hitungan, isi angkanya, dan lihat langkah penyelesaiannya.
+        </p>
 
-      <div className="segmen-baris" role="group" aria-label="Jenis hitungan">
-        {MODE.map((m) => (
-          <button
-            key={m.id}
-            type="button"
-            aria-pressed={mode === m.id}
-            className={
-              "segmen segmen--" + m.nada + (mode === m.id ? " segmen--aktif" : "")
-            }
-            onClick={() => setMode(m.id)}
-          >
-            {m.label}
-          </button>
-        ))}
-      </div>
+        <div className="segmen-baris" role="group" aria-label="Jenis hitungan">
+          {MODE.map((m) => (
+            <button
+              key={m.id}
+              type="button"
+              aria-pressed={mode === m.id}
+              className={
+                "segmen segmen--" + m.nada + (mode === m.id ? " segmen--aktif" : "")
+              }
+              onClick={() => setMode(m.id)}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="kalkulator">
-        <div className="kalkulator__masukan">
-          {mode === "unsur" ? (
-            <div className="isian">
-              <label htmlFor="kata">Kata</label>
-              <input
-                id="kata"
-                type="text"
-                value={kata}
-                onChange={(e) => setKata(e.target.value)}
-                autoComplete="off"
-                spellCheck="false"
-              />
-              <p className="isian__bantu">Contoh: KATAK, MATEMATIKA, MISSISSIPPI.</p>
-            </div>
-          ) : (
-            <>
+        <div className="kalkulator">
+          <div className="kalkulator__masukan">
+            {mode === "unsur" ? (
               <div className="isian">
-                <label htmlFor="n">
-                  n (banyak unsur{mode === "siklis" ? "" : " seluruhnya"})
-                </label>
+                <label htmlFor="kata">Kata</label>
                 <input
-                  id="n"
-                  type="number"
-                  inputMode="numeric"
-                  min={mode === "siklis" ? 1 : 0}
-                  max={BATAS_N}
-                  value={n}
-                  onChange={(e) => setN(e.target.value)}
+                  id="kata"
+                  type="text"
+                  value={kata}
+                  onChange={(e) => setKata(e.target.value)}
+                  autoComplete="off"
+                  spellCheck="false"
                 />
+                <p className="isian__bantu">Contoh: KATAK, MATEMATIKA, MISSISSIPPI.</p>
               </div>
-              {mode !== "siklis" && (
+            ) : (
+              <>
                 <div className="isian">
-                  <label htmlFor="r">r (banyak unsur yang diambil)</label>
+                  <label htmlFor="n">
+                    n (banyak unsur{mode === "siklis" ? "" : " seluruhnya"})
+                  </label>
                   <input
-                    id="r"
+                    id="n"
                     type="number"
                     inputMode="numeric"
-                    min={0}
+                    min={mode === "siklis" ? 1 : 0}
                     max={BATAS_N}
-                    value={r}
-                    onChange={(e) => setR(e.target.value)}
+                    value={n}
+                    onChange={(e) => setN(e.target.value)}
                   />
                 </div>
-              )}
-            </>
-          )}
-          <p className="kalkulator__petunjuk">
-            {mode === "permutasi" && "Dipakai saat urutan penting."}
-            {mode === "kombinasi" && "Dipakai saat urutan tidak penting."}
-            {mode === "unsur" && "Dipakai saat ada huruf atau benda yang kembar."}
-            {mode === "siklis" && "Dipakai saat unsur disusun melingkar."}
-          </p>
-        </div>
+                {mode !== "siklis" && (
+                  <div className="isian">
+                    <label htmlFor="r">r (banyak unsur yang diambil)</label>
+                    <input
+                      id="r"
+                      type="number"
+                      inputMode="numeric"
+                      min={0}
+                      max={BATAS_N}
+                      value={r}
+                      onChange={(e) => setR(e.target.value)}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+            <p className="kalkulator__petunjuk">
+              {mode === "permutasi" && "Dipakai saat urutan penting."}
+              {mode === "kombinasi" && "Dipakai saat urutan tidak penting."}
+              {mode === "unsur" && "Dipakai saat ada huruf atau benda yang kembar."}
+              {mode === "siklis" && "Dipakai saat unsur disusun melingkar."}
+            </p>
+          </div>
 
-        <div className={`kalkulator__hasil kalkulator__hasil--${hasil.nada || modeAktif.nada}`} aria-live="polite">
-          {hasil.galat ? (
-            <p className="galat" role="alert">{hasil.galat}</p>
-          ) : (
-            <>
-              <p className="hasil-besar">
-                <span className="hasil-besar__angka">{formatAngka(hasil.hasil)}</span>
-                <span className="hasil-besar__satuan">{hasil.satuan}</span>
-              </p>
-
-              {hasil.hitungan && (
-                <p className="hitungan">
-                  Banyak tiap huruf:{" "}
-                  {Object.entries(hasil.hitungan).map(([huruf, jml]) => (
-                    <span className="chip" key={huruf}>
-                      {huruf} × {jml}
-                    </span>
-                  ))}
+          <div className={`kalkulator__hasil kalkulator__hasil--${hasil.nada || modeAktif.nada}`} aria-live="polite">
+            {hasil.galat ? (
+              <p className="galat" role="alert">{hasil.galat}</p>
+            ) : (
+              <>
+                <p className="hasil-besar">
+                  <span className="hasil-besar__angka">{formatAngka(hasil.hasil)}</span>
+                  <span className="hasil-besar__satuan">{hasil.satuan}</span>
                 </p>
-              )}
 
-              <LangkahHitung langkah={hasil.langkah} />
-            </>
-          )}
-        </div>
-      </div>
+                {hasil.hitungan && (
+                  <p className="hitungan">
+                    Banyak tiap huruf:{" "}
+                    {Object.entries(hasil.hitungan).map(([huruf, jml]) => (
+                      <span className="chip" key={huruf}>
+                        {huruf} × {jml}
+                      </span>
+                    ))}
+                  </p>
+                )}
 
-      {daftar && (
-        <div className="daftar-wadah">
-          <h2 className="daftar-wadah__judul">
-            Semua {hasil.satuan} dari huruf {ABJAD.slice(0, hasil.n).join(", ")}
-          </h2>
-          <DaftarUbin item={daftar} nada={mode === "permutasi" ? "biru" : "hijau"} />
+                <LangkahHitung langkah={hasil.langkah} />
+              </>
+            )}
+          </div>
         </div>
-      )}
+
+        {daftar && (
+          <div className="daftar-wadah">
+            <h2 className="daftar-wadah__judul">
+              Semua {hasil.satuan} dari huruf {ABJAD.slice(0, hasil.n).join(", ")}
+            </h2>
+            <DaftarUbin item={daftar} nada={mode === "permutasi" ? "biru" : "hijau"} />
+          </div>
+        )}
+      </section>
       <Footer />
-    </section>
+    </>
   );
 }

@@ -124,8 +124,8 @@ export default function Beranda() {
             </Link>
           </div>
         </div>
-        <Footer />
       </section>
+      <Footer />
     </>
   );
 }
